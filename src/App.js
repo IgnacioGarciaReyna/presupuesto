@@ -1,6 +1,7 @@
 //Creamos un state para el presupuesto y otro para el presupuesto restante, lo creamos acá porque estos dos van a fluir al menos en dos componentes.
 import React, { useState } from "react";
 import Pregunta from "./components/Pregunta";
+import Formulario from "./components/Formulario";
 
 function App() {
   //Definición del state
@@ -14,10 +15,16 @@ function App() {
         <h1>Gasto Semanal</h1>
         <div className="contenido-principal contenido">
           <Pregunta
-          //Le pasamos las props
+            //Le pasamos las props
             guardarPresupuesto={guardarPresupuesto}
             guardarRestante={guardarRestante}
           />
+          <div className="row">
+            <div className="one-half column">
+              <Formulario />
+            </div>
+            <div className="one-half column">2</div>
+          </div>
         </div>
       </header>
     </div>
