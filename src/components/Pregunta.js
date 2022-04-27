@@ -1,5 +1,6 @@
-//Como el state no pasa por todos los componentes lo definimos acá, es un poco mas local.
 import React, { Fragment, useState } from "react";
+//Importamos el error
+import Error from './Error'
 
 const Pregunta = () => {
   //Definimos el state
@@ -35,8 +36,9 @@ const Pregunta = () => {
     //Utilizamos un fragment porque vamos a retornar un form.
     <Fragment>
       <h2>Coloca tu presupuesto</h2>
-    {/* Ternario para mostrar mensaje de error */}
-    { error ? <p>Error</p> : null}
+    {/* Ternario para mostrar mensaje de error.
+    Para hacer el error mas inteligente le pasamos un prop "mensaje" que indica en que pantalla estamos teniendo el error.*/}
+    { error ? <Error mensaje="El Presupuesto es incorrecto" /> : null}
 
       <form
         //Agregamos el onSubmit
