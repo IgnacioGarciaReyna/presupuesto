@@ -2,7 +2,7 @@ import React, { Fragment, useState } from "react";
 import Error from "./Error";
 
 //Extraemos los props
-const Pregunta = ({ guardarPresupuesto, guardarRestante }) => {
+const Pregunta = ({ guardarPresupuesto, guardarRestante, actualizarPregunta }) => {
   //Definimos el state
   const [cantidad, guardarCantidad] = useState(0);
   //El valor inicial es false para indicar que no hay error al incio.
@@ -28,6 +28,7 @@ const Pregunta = ({ guardarPresupuesto, guardarRestante }) => {
     //Ya tenemos un presupuesto valido, tenemos el presupuesto inicial, que por el momento es también el presupuesto restante.
     guardarPresupuesto(cantidad);
     guardarRestante(cantidad);
+    actualizarPregunta(false)
   };
 
   return (
