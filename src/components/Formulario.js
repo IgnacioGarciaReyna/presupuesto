@@ -1,29 +1,33 @@
 import React, { useState } from "react";
+import Error from "./Error";
 
 const Formulario = () => {
   const [nombre, guardarNombre] = useState("");
   const [cantidad, guardarCantidad] = useState(0);
+  const [error, guardarError] = useState(false);
 
   //Cuando el usuario agrega un gasto
-  const agregarGasto = e => {
+  const agregarGasto = (e) => {
     e.preventDefault();
 
     //validar
+    if (cantidad < 1 || isNaN(cantidad) || nombre.trim() === "") {
+      guardarError(true)
+      return;
+    }
 
     //construir el gasto
-
 
     //pasar el gasto al componente principal
 
     //resetear el form
-  }
-
+  };
 
   return (
-    <form
-      onSubmit={agregarGasto}
-    >
+    <form onSubmit={agregarGasto}>
       <h2>Agregá tus gastos acá</h2>
+
+      {error ? <Error mensaje="Ambos campos son obligatorios o presupuesto incorrecto"/> :  null}
 
       <div className="campo">
         <label>Nombre Gasto</label>
