@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Error from "./Error";
+import shortid from "shortid";
 
 const Formulario = () => {
   const [nombre, guardarNombre] = useState("");
@@ -12,11 +13,18 @@ const Formulario = () => {
 
     //validar
     if (cantidad < 1 || isNaN(cantidad) || nombre.trim() === "") {
-      guardarError(true)
+      guardarError(true);
       return;
     }
 
     //construir el gasto
+    //El id se generó utilizando npm i short id que es un paquete como uid pero mas corto
+    const gasto = {
+      nombre,
+      cantidad,
+      id: shortid.generate(),
+    };
+    console.log(gasto)
 
     //pasar el gasto al componente principal
 
@@ -27,7 +35,9 @@ const Formulario = () => {
     <form onSubmit={agregarGasto}>
       <h2>Agregá tus gastos acá</h2>
 
-      {error ? <Error mensaje="Ambos campos son obligatorios o presupuesto incorrecto"/> :  null}
+      {error ? (
+        <Error mensaje="Ambos campos son obligatorios o presupuesto incorrecto" />
+      ) : null}
 
       <div className="campo">
         <label>Nombre Gasto</label>
