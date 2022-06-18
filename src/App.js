@@ -11,6 +11,15 @@ function App() {
   //State para carga condicional
   //Inicia como true, porque cuando arranca la página queremos que aparezca
   const [mostrarPregunta, actualizarPregunta] = useState(true);
+  const [gastos, guardarGastos] = useState([]);
+
+  //Función que se ejecutará cuando agreguemos un nuevo gasto
+  const agregarNuevoGasto = (gasto) => {
+    guardarGastos([
+      ...gastos,
+      gasto
+    ])
+  };
 
   return (
     <div className="container">
@@ -28,7 +37,7 @@ function App() {
           ) : (
             <div className="row">
               <div className="one-half column">
-                <Formulario />
+                <Formulario agregarNuevoGasto={agregarNuevoGasto} />
               </div>
               <div className="one-half column">2</div>
             </div>
