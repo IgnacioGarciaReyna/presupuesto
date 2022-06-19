@@ -1,5 +1,5 @@
 //Creamos un state para el presupuesto y otro para el presupuesto restante, lo creamos acá porque estos dos van a fluir al menos en dos componentes.
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Pregunta from "./components/Pregunta";
 import Formulario from "./components/Formulario";
 import Listado from "./components/Listado";
@@ -14,14 +14,23 @@ function App() {
   //Inicia como true, porque cuando arranca la página queremos que aparezca
   const [mostrarPregunta, actualizarPregunta] = useState(true);
   const [gastos, guardarGastos] = useState([]);
+  const [gasto, guardarGasto] = useState({});
+  const [creargasto, guardarCrearGasto] = useState(false);
 
-  //Función que se ejecutará cuando agreguemos un nuevo gasto
-  const agregarNuevoGasto = (gasto) => {
-    guardarGastos([
-      ...gastos,
-      gasto
-    ])
-  };
+  //useEffect que actualiza el presupuesto restante
+  useEffect(() => {
+    if (creargasto) {
+      //agrega el nuevo presupuesto
+      guardarGastos([...gastos, gasto]);
+
+      //resta del presupuesto actual
+      const presupuestoRestante = restante - gasto.cantidad;
+      guardarRestante(presupuestoRestante);
+
+      //Resetear a false
+      guardarCrearGasto(false);
+    }
+  }, [gasto]);
 
   return (
     <div className="container">
@@ -39,17 +48,16 @@ function App() {
           ) : (
             <div className="row">
               <div className="one-half column">
-                <Formulario 
-                  agregarNuevoGasto={agregarNuevoGasto} 
+                <Formulario
+                  guardarGasto={guardarGasto}
+                  guardarCrearGasto={guardarCrearGasto}
                 />
               </div>
 
               <div className="one-half column">
-                <Listado
-                  gastos={gastos}
-                />
-                <ControlPresupuesto 
-                  presupuesto={presupuesto}  
+                <Listado gastos={gastos} />
+                <ControlPresupuesto
+                  presupuesto={presupuesto}
                   restante={restante}
                 />
               </div>
